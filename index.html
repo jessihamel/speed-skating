@@ -7,17 +7,26 @@
       font-size: 12px;
     }
 
-    svg{
-      padding: 30px;
+    .EventList{
+      display: inline;
+      float: left;
     }
 
     h2{
       font-family: Helvetica, sans-serif;
       font-size: 14px;
+      margin-bottom: 0px;
     }
 
     ul{
       list-style-type: none;
+      padding-left: 10px;
+    }
+
+
+    svg{
+      padding-left: 30px;
+      padding-top: 10px;
     }
 
       .yaxis path,
@@ -63,6 +72,7 @@
           opacity: 0.7;
       }
 
+
 </style>
 
 <head>
@@ -74,18 +84,33 @@
 
 <body>
 
-<h2>Event</h2>
-        <ul id="Event">
-          <li><label><input type="radio" name="radio" value="FiveHundredMen">500m Men</label></li>
-          <li><label><input type="radio" name="radio" value="FiveHundredWomen">500m Women</label></li>
-          <li><label><input type="radio" name="radio" value="OneThousandMen">1000m Men</label></li>
-          <li><label><input type="radio" name="radio" value="OneThousandWomen">1000m Women</label></li>
-          <li><label><input type="radio" name="radio" value="FifteenHundredMen">1500m Men</label></li>
-          <li><label><input type="radio" name="radio" value="FifteenHundredWomen">1500m Women</label></li>
-          <li><label><input type="radio" name="radio" value="ThreeThousandWomen">3000m Women</label></li>
-          <li><label><input type="radio" name="radio" value="FiveThousandMen">5000m Men</label></li>
-          <li><label><input type="radio" name="radio" value="FiveThousandWomen">5000m Women</label></li>
-          <li><label><input type="radio" name="radio" value="TenThousandMen">10000m Men</label></li>
+  <div class="EventList">
+    <h2>Events</h2>
+          <ul id="Events">
+            <li><label><input checked="checked" type="radio" name="radio" value="AllEvents">All Events</label></li>
+            <li><label><input type="radio" name="radio" value="FiveHundredMen">500m Men</label></li>
+            <li><label><input type="radio" name="radio" value="FiveHundredWomen">500m Women</label></li>
+            <li><label><input type="radio" name="radio" value="OneThousandMen">1000m Men</label></li>
+            <li><label><input type="radio" name="radio" value="OneThousandWomen">1000m Women</label></li>
+            <li><label><input type="radio" name="radio" value="FifteenHundredMen">1500m Men</label></li>
+            <li><label><input type="radio" name="radio" value="FifteenHundredWomen">1500m Women</label></li>
+            <li><label><input type="radio" name="radio" value="ThreeThousandWomen">3000m Women</label></li>
+            <li><label><input type="radio" name="radio" value="FiveThousandMen">5000m Men</label></li>
+            <li><label><input type="radio" name="radio" value="FiveThousandWomen">5000m Women</label></li>
+            <li><label><input type="radio" name="radio" value="TenThousandMen">10000m Men</label></li>
+          </ul>
+  </div class="EventList">
+
+  <div class="EventList">
+    <h2>Short Track Events</h2>
+            <ul id="ShortTrack">
+              <li><label><input type="radio" name="radio" value="ShortFiveHundredMen">500m Short Track Men</label></li>
+              <li><label><input type="radio" name="radio" value="ShortFiveHundredWomen">500m Short Track Women</label></li>
+              <li><label><input type="radio" name="radio" value="ShortOneThousandMen">1000m Short Track Men</label></li>
+              <li><label><input type="radio" name="radio" value="ShortOneThousandWomen">1000m Short Track Women</label></li>
+            </ul>
+  </div>
+
 
 <script type="text/javascript">
 
@@ -97,6 +122,36 @@ var margin = {top: 20, right: 20, bottom: 20, left: 20};
 var html = d3.select("body");
 
 d3.csv("dataclean.csv", function(error, data){
+
+          var AllEvents = d3.selectAll("input[value=AllEvents]")
+              .on("click", function() {
+                  var circles = svg.selectAll("circle")
+                    .data(data)
+
+                    yScale.domain([d3.min(data, function(d) { return d.totalseconds}), d3.max(data, function(d) { return d.totalseconds})]);
+
+                  circles.enter()
+                    .append("circle")
+                    .classed("bronze", function(d) { return d.Medal == "BRONZE"; })
+                    .classed("silver", function(d) { return d.Medal == "SILVER"; })
+                    .classed("gold", function(d) { return d.Medal == "GOLD"; });
+
+                  svg.select(".yaxis")
+                    .transition()
+                    .duration(1000).ease("exp-in-out")
+                    .call(yAxis)
+
+                  circles.exit()
+                    .remove();
+
+                  circles.transition()
+                    .duration(1000)
+                    .ease("exp-in-out")
+                    .attr('r', "5")
+                    .attr('cx', function(d){ return xScale(d.Year); })
+                    .attr('cy', function(d){ return yScale(d.totalseconds); })
+                    .attr('stroke', 'darkgray');
+            })
 
           var FiveHundredMen = d3.selectAll("input[value=FiveHundredMen]")
               .on("click", function() {
@@ -148,20 +203,26 @@ d3.csv("dataclean.csv", function(error, data){
             draw("10000m Men")
           })
 
+          var ShortFiveHundredMen = d3.selectAll("input[value=ShortFiveHundredMen]")
+              .on("click", function() {
+              draw("500m Short Track Men")
+            })
 
-  var buttonGroup = html.append("div");
+          var ShortFiveHundreWdomen = d3.selectAll("input[value=ShortFiveHundredWomen]")
+              .on("click", function() {
+              draw("500m Short Track Women")
+            })
 
-  var button1 = buttonGroup.append("button")
-    .text("button1")
-    .on("click", function() {
-      draw("1500m Men")
-    })
 
-  var button2 = buttonGroup.append("button")
-    .text("button2")
-    .on("click", function() {
-      draw("500m Men")
-    })
+          var ShortOneThousandMen = d3.selectAll("input[value=ShortOneThousandMen]")
+              .on("click", function() {
+              draw("1000m Short Track Men")
+            })
+
+          var ShortOneThousandWomen = d3.selectAll("input[value=ShortOneThousandWomen]")
+              .on("click", function() {
+              draw("1000m Short Track Women")
+            })
 
   var svg = html.append("svg")
       .attr("width", width + margin.left + margin.right)
@@ -180,7 +241,7 @@ d3.csv("dataclean.csv", function(error, data){
       .range([0, width]);
 
   var yScale = d3.scale.linear()
-      .range([0, height]);
+      .range([height, 0]);
 
   var dataByEvent = d3.nest()
       .key(function(d) { return d.Event; })
@@ -234,7 +295,7 @@ d3.csv("dataclean.csv", function(error, data){
         .ease("exp-in-out")
         .attr('r', "5")
         .attr('cx', function(d){ return xScale(d.Year); })
-        .attr('cy', function(d){ return height - yScale(d.totalseconds); })
+        .attr('cy', function(d){ return yScale(d.totalseconds); })
         .attr('stroke', 'darkgray');
 
 
