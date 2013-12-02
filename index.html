@@ -2,8 +2,22 @@
 <html lang="en">
     <style type="text/css">
 
+    html{
+      font-family: Helvetica, sans-serif;
+      font-size: 12px;
+    }
+
     svg{
       padding: 30px;
+    }
+
+    h2{
+      font-family: Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    ul{
+      list-style-type: none;
     }
 
       .yaxis path,
@@ -14,6 +28,12 @@
           shape-rendering: crispEdges;
       }
 
+      .yaxis text {
+          fill: #333;
+          font-family: sans-serif;
+          font-size: 10px;
+      }
+
       .xaxis path,
 
       .xaxis line {
@@ -21,6 +41,27 @@
           stroke: black;
           shape-rendering: crispEdges;
         }
+
+      .xaxis text {
+          fill: #333;
+          font-family: sans-serif;
+          font-size: 10px;
+      }        
+
+      .gold {
+          fill: #C98910;
+          opacity: 0.7;
+      }
+
+      .silver {
+          fill: #A8A8A8;
+          opacity: 0.7;
+      }
+
+      .bronze {
+          fill: #965A38;
+          opacity: 0.7;
+      }
 
 </style>
 
@@ -33,16 +74,80 @@
 
 <body>
 
+<h2>Event</h2>
+        <ul id="Event">
+          <li><label><input type="radio" name="radio" value="FiveHundredMen">500m Men</label></li>
+          <li><label><input type="radio" name="radio" value="FiveHundredWomen">500m Women</label></li>
+          <li><label><input type="radio" name="radio" value="OneThousandMen">1000m Men</label></li>
+          <li><label><input type="radio" name="radio" value="OneThousandWomen">1000m Women</label></li>
+          <li><label><input type="radio" name="radio" value="FifteenHundredMen">1500m Men</label></li>
+          <li><label><input type="radio" name="radio" value="FifteenHundredWomen">1500m Women</label></li>
+          <li><label><input type="radio" name="radio" value="ThreeThousandWomen">3000m Women</label></li>
+          <li><label><input type="radio" name="radio" value="FiveThousandMen">5000m Men</label></li>
+          <li><label><input type="radio" name="radio" value="FiveThousandWomen">5000m Women</label></li>
+          <li><label><input type="radio" name="radio" value="TenThousandMen">10000m Men</label></li>
+
 <script type="text/javascript">
 
 
 var margin = {top: 20, right: 20, bottom: 20, left: 20};
      width = 960 - margin.left - margin.right,
-     height = 700 - margin.top - margin.bottom;
+     height = 600 - margin.top - margin.bottom;
 
 var html = d3.select("body");
 
 d3.csv("dataclean.csv", function(error, data){
+
+          var FiveHundredMen = d3.selectAll("input[value=FiveHundredMen]")
+              .on("click", function() {
+              draw("500m Men")
+            })
+
+          var FiveHundredWomen = d3.selectAll("input[value=FiveHundredWomen]")
+              .on("click", function() {
+              draw("500m Women")
+            })
+
+          var OneThousandMen = d3.selectAll("input[value=OneThousandMen]")
+              .on("click", function() {
+              draw("1000m Men")
+            })
+
+          var OneThousandWomen = d3.selectAll("input[value=OneThousandWomen]")
+              .on("click", function() {
+              draw("1000m Women")
+            })
+
+          var FifteenHundredMen = d3.selectAll("input[value=FifteenHundredMen]")
+              .on("click", function() {
+              draw("1500m Men")
+            })
+
+          var FifteenHundredWomen = d3.selectAll("input[value=FifteenHundredWomen]")
+            .on("click", function() {
+            draw("1500m Women")
+          })
+
+          var ThreeThousandWomen = d3.selectAll("input[value=ThreeThousandWomen]")
+            .on("click", function() {
+            draw("3000m Women")
+          })
+
+          var FiveThousandMen = d3.selectAll("input[value=FiveThousandMen]")
+            .on("click", function() {
+            draw("5000m Men")
+          })
+
+          var FiveThousandWomen = d3.selectAll("input[value=FiveThousandWomen]")
+            .on("click", function() {
+            draw("5000m Women")
+          })
+
+          var TenThousandMen = d3.selectAll("input[value=TenThousandMen]")
+            .on("click", function() {
+            draw("10000m Men")
+          })
+
 
   var buttonGroup = html.append("div");
 
@@ -96,8 +201,8 @@ d3.csv("dataclean.csv", function(error, data){
     .orient("left");
 
   svg.append("g")
-      .attr("class", "yaxis")
-      .call(yAxis);
+    .attr("class", "yaxis")
+    .call(yAxis);
 
 
   function draw(currentEvent) {
@@ -111,19 +216,30 @@ d3.csv("dataclean.csv", function(error, data){
         .data(currentEventData)
 
     circles.enter()
-        .append("circle");
+        .append("circle")
+        .classed("bronze", function(d) { return d.Medal == "BRONZE"; })
+        .classed("silver", function(d) { return d.Medal == "SILVER"; })
+        .classed("gold", function(d) { return d.Medal == "GOLD"; });
+
+    svg.select(".yaxis")
+        .transition()
+        .duration(1000).ease("exp-in-out")
+        .call(yAxis)
 
     circles.exit()
         .remove();
         
     circles.transition()
+        .duration(1000)
+        .ease("exp-in-out")
         .attr('r', "5")
         .attr('cx', function(d){ return xScale(d.Year); })
         .attr('cy', function(d){ return height - yScale(d.totalseconds); })
-        .attr('fill', 'orange')
         .attr('stroke', 'darkgray');
 
-    console.log(currentEventData)
+
+
+    console.log(d.Medal)
   }
 
 });
