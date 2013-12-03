@@ -1,0 +1,330 @@
+length(sha)
+length(shan)
+data <- read.csv("speedskateolympics2.csv")
+head(data)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] })
+head(data)
+?strsplit
+grepl("shan", "han")
+grepl("an", "shan")
+grepl(":", "1:20.1")
+grepl(":", "20.1")
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] } PRESERVE_NULL)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, PRESERVE_NULL)
+?Preserve_null
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, fixed=TRUE)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, fixed=FALSE)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), fixed=FALSE, function(x) { x[1] })
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), fixed=TRUE, function(x) { x[1] })
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":", fixed=FALSE), function(x) { x[1] })
+head(data)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":", fixed=TRUE), function(x) { x[1] })
+head(data)
+data$milisecs <- sapply(strsplit(as.character(data$Time), split=".", fixed=TRUE), function(x) { x[2] })
+head(data)
+data$milisecs[is.na(x)] <- 0
+x[is.na(x)] <- 0
+data$milisecs[is.na(data$milisecs))] <- 0
+data$milisecs[is.na(data$milisecs)] <- 0
+head(data)
+paste0(" ", "data$Time")
+head(data)
+for(i in data$Time){if (grepl(":", i)){strsplit(as.character(i), split=".", fixed=TRUE), function(x) { x[2] }}}
+for(i in data$Time){#
+	if (grepl(":", i))#
+		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
+mydata$mins<-0
+data$mins<-0
+head(data)
+length(data$Time)
+install.packages(stringr)
+install.packages("stringr")
+str_detect(data$Time, ":")
+library("str_detect")
+library(str_detect)
+library(stringr)
+str_detect(data$Time, ":")
+head(data)
+jessi <- c(1,2,3,4)
+jessi
+data$colon <- str_detect(data$Time, ":")
+head(data)
+data$mins <- for(i in data$Time){#
+ if (i in data$colon==TRUE)#
+		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
+for(i in data$Time){#
+ if (i in data$colon==TRUE)#
+		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
+data$mins <- gsub(":.*", "", data$Time)
+head(data)
+for(i in data$Time){#
+ if (i in data$colon=="TRUE")#
+		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
+data <- read.csv("speedskateolympics3.csv")
+head(data)
+data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] })
+head(data)
+data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
+head(data)
+data <- read.csv("speedskateolympics4.csv")
+data <- read.csv("speedskateolympics4.csv")
+data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
+head(data)
+data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
+head(data)
+data$minutesconverted <- data$minutes*60
+typeof(data$minutes)
+data$minutes <- as.numeric(data$minutes)
+head(data)
+data$minutes
+data <- read.csv("speedskateolympics4.csv")
+data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
+data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
+head(data)
+data$minutes <- as.numeric(data$minutes)
+data$minutes <- data$minutes*60
+head(data)
+data$totalseconds <- data$minutes+data$seconds
+data$seconds <- as.numeric(data$seconds)
+data$totalseconds <- data$minutes+data$seconds
+head(data)
+men500m <- subset(data, Event=="500m Men")
+head(men500m)
+hist(men500m$totalseconds)
+plot(men500m$year, men500m$totalseconds)
+men500mGold <- subset(men500m, Medal=="GOLD")
+men500mGold
+plot(men500mGold$Year, men500mGold$totalseconds)
+men1000m <- subset(data, Event=="1000m Men")
+plot(men1000m$Year, men1000m$totalseconds)
+plotcolors <- ifelse(men1000m$Medal == "GOLD", "red", "lightgray")
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors)
+women1000m <- subset(data, Event=="1000m Women")
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors)
+women1000m
+women1000m
+women1000m
+plotcolors <- ifelse(women1000m$Medal == "GOLD", "red", "lightgray")
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors)
+plot(men1000m$Year, men1000m$totalseconds)
+plot(men500m$Year, men1000m$totalseconds)
+plot(men500m$Year, men500m$totalseconds)
+men500m$Adjusted <- ifelse(men500m$totalseconds>50, men500m$totalseconds/2, men500m$totalseconds)
+head(men500m)
+plot(men500m$Year, men500m$Adjusted)
+plotcolors <- ifelse(men500m$Medal == "GOLD", "red", "lightgray")
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+plotcolors <- ifelse(men500m$Medal == "GOLD", "yellow", "lightgray")
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+men500m
+plotcolors <- ifelse(men500m$Medal == "GOLD", "orange", "lightgray")
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+women500m <- subset(data, Event=="500m Women")
+plotcolorswomen <- ifelse(women500m$Medal == "GOLD", "orange", "darkgray")
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen) par(new=F)
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen, par(new=F))
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen) par(new=FALSE)
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+par(new=TRUE)
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen)
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+par(new=FALSE)
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen)
+plot(men500m$Year, men500m$Adjusted, col=plotcolors)
+women500m$Adjusted <- ifelse(women500m$totalseconds>50, women500m$totalseconds/2, women500m$totalseconds)
+plot(women500m$Year, women500m$totalseconds, col=plotcolorswomen)
+plot(women500m$Year, women500m$Adjusted, col=plotcolorswomen)
+men1000m <- subset(data, Event=="1000m Men")
+plot(men1000m$Year, men1000m$totalseconds)
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolor)
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors)
+men1000m
+plotcolors1000m <- ifelse(men1000m$Medal=="GOLD", "orange", "lightgray")
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors1000m)
+women1000m <- subset(data, Event=="1000m Women")#
+plotcolors1000mWomen <- ifelse(women1000m$Medal=="GOLD", "orange", "darkgray")#
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors1000mWomen)
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors1000m)
+women1000m <- subset(data, Event=="1000m Women")#
+plotcolors1000mWomen <- ifelse(women1000m$Medal=="GOLD", "orange", "darkgray")#
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors1000mWomen, ylim=c(60,90))
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors1000m)
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors1000m, ylim=c(60,90))
+par(new=FALSE)
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors1000mWomen, ylim=c(60,90))
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolors1000m, ylim=c(60,90))
+par(new=TRUE)
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolors1000mWomen, ylim=c(60,90))
+plotcomparemen <- ifelse(men1000m$Medal=="GOLD", "orange", "blue")#
+plotcomparewomen <- ifelse(women1000m$Medal=="GOLD", "orange", "green")#
+plot(men1000m$Year, men1000m$totalseconds, col=plotcomparemen, ylim=c(60,90), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1000m$Year, women1000m$totalseconds, col=plotcomparewomen, ylim=c(60,90), xlim=c(1924,2010))
+men1500m <- subset(data, Event=="1500m Men")#
+women1500m <- subset(data, Event=="1500m Women")
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "blue")#
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "green")#
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(60,90), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(60,90), xlim=c(1924,2010))
+head(men1500m)
+head(women1500m)
+plot(men1500m$Year, men1500m$totalseconds)
+plot(women1500m$Year, women1500m$totalseconds)
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "black")
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "lightgray")
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(60,90), xlim=c(1924,2010))
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(60,90))
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen)
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(100,200), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(100,200), xlim=c(1924,2010))
+men5000m <- subset(data, Event=="5000m Men")#
+women5000m <- subset(data, Event=="5000m Women")#
+#
+plotcomparemen <- ifelse(men5000m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women5000m$Medal=="GOLD", "orange", "lightgray")
+plot(men5000m$Year, men5000m$totalseconds)
+plot(men5000m$Year, men5000m$totalseconds, col=plotcomparemen, ylim=c(300,600), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women5000m$Year, women5000m$totalseconds, col=plotcomparewomen, ylim=c(300,600), xlim=c(1924,2010))
+plot(men1000m$Year, men1000m$totalseconds)
+plotcolor <- ifelse(men1000m$Medal=="GOLD", "orange", "black")
+plot(men1000m$Year, men1000m$totalseconds, col=plotcolor)
+plotcolor <- ifelse(women1000m$Medal=="GOLD", "orange", "black")
+plot(women1000m$Year, women1000m$totalseconds)
+plot(women1000m$Year, women1000m$totalseconds, col=plotcolor)
+data <- read.csv("speedskateolympics5.csv")
+data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
+data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
+data$minutes <- as.numeric(data$minutes)#
+data$seconds <- as.numeric(data$seconds)
+data$minutes <- data$minutes*60
+data$totalseconds <- data$minutes+data$seconds
+men500m <- subset(data, Event=="500m Men")
+men500m$Adjusted <- ifelse(men500m$totalseconds>50, men500m$totalseconds/2, men500m$totalseconds)
+women500m <- subset(data, Event=="500m Women")
+women500m$Adjusted <- ifelse(women500m$totalseconds>50, women500m$totalseconds/2, women500m$totalseconds)
+men1000m <- subset(data, Event=="1000m Men")
+women1000m <- subset(data, Event=="1000m Women")
+men500m
+plotcomparemen <- ifelse(men500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men500m$Year, men500m$totalseconds, col=plotcomparemen, ylim=c(30,50), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women500m$Year, women500m$totalseconds, col=plotcomparewomen, ylim=c(30,50), xlim=c(1924,2010))
+lotcomparemen <- ifelse(men500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men500m$Year, men500m$Adjusted, col=plotcomparemen, ylim=c(30,50), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women500m$Year, women500m$Adjusted, col=plotcomparewomen, ylim=c(30,50), xlim=c(1924,2010))
+men10000m <- subset(data, Event=="10000m Men")
+plotcolor <- ifelse(men10000m$Medal=="GOLD", "orange", "black")
+plot(men10000m$Year, men10000m$totalseconds, col=plotcolor)
+women3000m <- subset(data, Event=="3000m Women")#
+plotcolor <- ifelse(women3000m$Medal=="GOLD", "orange", "lightgray")#
+plot(women3000m$Year, women3000m$totalseconds, col=plotcolor)
+500ShortMen <- subset(data, Event=="500m Short Track Men")
+ShortMen500 <- subset(data, Event=="500m Short Track Men")
+ShortMen500
+plot(ShortMen500$Year, ShortMen500$totalseconds)
+plotcolor <- ifelse(ShortMen500$Medal=="GOLD", "orange", "black")
+plot(ShortMen500$Year, ShortMen500$totalseconds, col=plotcolor)
+ShortWomen500 <- subset(data, Event=="500m Short Track Women")
+ShortWomen500
+plotcomparemen <- ifelse(ShortMen500$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(ShortWomen500m$Medal=="GOLD", "orange", "lightgray")#
+plot(ShortMen500m$Year, ShortMen500m$totalseconds, col=plotcomparemen, ylim=c(40,50), xlim=c(1992,2010))#
+par(new=TRUE)#
+plot(ShortWomen500m$Year, ShortWomen500m$totalseconds, col=plotcomparewomen, ylim=c(40,50), xlim=c(1992,2010))
+plotcomparemen <- ifelse(ShortMen500$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(ShortWomen500$Medal=="GOLD", "orange", "lightgray")#
+plot(ShortMen500$Year, ShortMen500$totalseconds, col=plotcomparemen, ylim=c(40,50), xlim=c(1992,2010))#
+par(new=TRUE)#
+plot(ShortWomen500$Year, ShortWomen500$totalseconds, col=plotcomparewomen, ylim=c(40,50), xlim=c(1992,2010))
+plot(ShortMen500$Year, ShortMen500$totalseconds, col=plotcomparemen, ylim=c(40,50), xlim=c(1992,2010))
+par(new=TRUE)
+plot(ShortWomen500$Year, ShortWomen500$totalseconds, col=plotcomparewomen, ylim=c(40,50), xlim=c(1992,2010))
+ShortWomen1000 <- subset(data, Event=="1000m Short Track Women")#
+ShortMen1000 <- subset(data, Event=="1000m Short Track Men")
+ShortMen1000
+ShortWomen1000
+plotcomparemen <- ifelse(ShortMen1000$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(ShortWomen1000$Medal=="GOLD", "orange", "lightgray")
+plot(ShortMen1000$Year, ShortMen1000$totalseconds, col=plotcomparemen, ylim=c(80,105), xlim=c(1992,2010))#
+par(new=TRUE)#
+plot(ShortWomen1000$Year, ShortWomen1000$totalseconds, col=plotcomparewomen, ylim=c(80,105), xlim=c(1992,2010))
+ShortRelay5000 <- subset(data, Event=="5000m Short Track Relay Men")
+ShortRelay5000
+plotcolor <- ifelse(ShortRelay5000$Medal=="GOLD", "orange", "black")
+plot(ShortRelay5000$Year, ShortRelay5000$totalseconds, col=plotcolor)
+ShortRelay3000 <- subset(data, Event=="3000m Short Track Relay Women")
+ShortRelay3000
+ShortRelay3000 <- subset(data, Event=="3000m Short Track Relay Women")
+plotcolor <- ifelse(ShortRelay3000$Medal=="GOLD", "orange", "black")
+plot(ShortRelay3000$Year, ShortRelay3000$totalseconds, col=plotcolor)
+altitude <- read.csv("speedskateolympics6.csv")
+plot(altitude$Year, altitude$Altitude)
+men1000m <- subset(data, Event=="1000m Men")#
+women1000m <- subset(data, Event=="1000m Women")#
+#
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(100,200), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(100,200), xlim=c(1924,2010))
+par(new=TRUE)
+plot(altitude$Year, altitude$Altitude)
+plot(altitude$Year, altitude$Altitude, col="green")
+men1000m <- subset(data, Event=="1000m Men")#
+women1000m <- subset(data, Event=="1000m Women")#
+#
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(100,200), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(100,200), xlim=c(1924,2010))
+plot(altitude$Year, altitude$Altitude, col="green")
+men1000m <- subset(data, Event=="1000m Men")#
+women1000m <- subset(data, Event=="1000m Women")#
+#
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(100,200), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(100,200), xlim=c(1924,2010))
+par(new=TRUE)
+?lineplot
+?line
+plot(altitude$Year, altitude$Altitude, col="green", type="l")
+plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 1500))
+plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 300))
+plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 3000))
+plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 2000))
+men1000m <- subset(data, Event=="1000m Men")#
+women1000m <- subset(data, Event=="1000m Women")#
+#
+plotcomparemen <- ifelse(men1500m$Medal=="GOLD", "orange", "black")#
+plotcomparewomen <- ifelse(women1500m$Medal=="GOLD", "orange", "lightgray")#
+plot(men1500m$Year, men1500m$totalseconds, col=plotcomparemen, ylim=c(100,200), xlim=c(1924,2010))#
+par(new=TRUE)#
+plot(women1500m$Year, women1500m$totalseconds, col=plotcomparewomen, ylim=c(100,200), xlim=c(1924,2010))
+par(new=TRUE)
+plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 2000))
+head(data)
+max(data$totalseconds)
+?max
+max(data$totalseconds, na.rm = FALSE)
+hist(data$totalseconds)
+data <- read.csv("speedskateolympics6.csv")
+data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
+data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
+data$minutes <- as.numeric(data$minutes)
+data$seconds <- as.numeric(data$seconds)
+data$minutes <- data$minutes*60
+data$totalseconds <- data$minutes+data$seconds
+head(data)
+write.csv(data, "dataclean.csv")
+?type
+typeof(data$Year)
