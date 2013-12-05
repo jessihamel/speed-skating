@@ -1,83 +1,3 @@
-length(sha)
-length(shan)
-data <- read.csv("speedskateolympics2.csv")
-head(data)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] })
-head(data)
-?strsplit
-grepl("shan", "han")
-grepl("an", "shan")
-grepl(":", "1:20.1")
-grepl(":", "20.1")
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] } PRESERVE_NULL)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, PRESERVE_NULL)
-?Preserve_null
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, fixed=TRUE)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] }, fixed=FALSE)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), fixed=FALSE, function(x) { x[1] })
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), fixed=TRUE, function(x) { x[1] })
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":", fixed=FALSE), function(x) { x[1] })
-head(data)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":", fixed=TRUE), function(x) { x[1] })
-head(data)
-data$milisecs <- sapply(strsplit(as.character(data$Time), split=".", fixed=TRUE), function(x) { x[2] })
-head(data)
-data$milisecs[is.na(x)] <- 0
-x[is.na(x)] <- 0
-data$milisecs[is.na(data$milisecs))] <- 0
-data$milisecs[is.na(data$milisecs)] <- 0
-head(data)
-paste0(" ", "data$Time")
-head(data)
-for(i in data$Time){if (grepl(":", i)){strsplit(as.character(i), split=".", fixed=TRUE), function(x) { x[2] }}}
-for(i in data$Time){#
-	if (grepl(":", i))#
-		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
-mydata$mins<-0
-data$mins<-0
-head(data)
-length(data$Time)
-install.packages(stringr)
-install.packages("stringr")
-str_detect(data$Time, ":")
-library("str_detect")
-library(str_detect)
-library(stringr)
-str_detect(data$Time, ":")
-head(data)
-jessi <- c(1,2,3,4)
-jessi
-data$colon <- str_detect(data$Time, ":")
-head(data)
-data$mins <- for(i in data$Time){#
- if (i in data$colon==TRUE)#
-		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
-for(i in data$Time){#
- if (i in data$colon==TRUE)#
-		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
-data$mins <- gsub(":.*", "", data$Time)
-head(data)
-for(i in data$Time){#
- if (i in data$colon=="TRUE")#
-		{strsplit(as.character(i), split=":"), function(x) { x[1] }}}
-data <- read.csv("speedskateolympics3.csv")
-head(data)
-data$minutes <- sapply(strsplit(as.character(data$Time), split=":"), function(x) { x[1] })
-head(data)
-data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
-head(data)
-data <- read.csv("speedskateolympics4.csv")
-data <- read.csv("speedskateolympics4.csv")
-data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
-head(data)
-data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
-head(data)
-data$minutesconverted <- data$minutes*60
-typeof(data$minutes)
-data$minutes <- as.numeric(data$minutes)
-head(data)
-data$minutes
-data <- read.csv("speedskateolympics4.csv")
 data$minutes <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[1] })
 data$seconds <- sapply(strsplit(as.character(data$TimeFormat), split=":"), function(x) { x[2] })
 head(data)
@@ -328,3 +248,92 @@ head(data)
 write.csv(data, "dataclean.csv")
 ?type
 typeof(data$Year)
+load.csv("dataclean.csv")
+data <- read.csv("dataclean.csv")
+head(data)
+data$MedalCode <- 0
+head(data)
+data$MedalCode <- 1
+head(data)
+data$MedalCode <- ifelse(Medal=="Silver", 2, 3)
+data$MedalCode <- ifelse(data$Medal=="Silver", 2, 3)
+head(data)
+data$MedalCode <- if data$Medal=="GOLD", 2
+data$MedalCode <- if (data$Medal=="GOLD") 3
+data$MedalCode <- ifelse(data$Medal=="GOLD", 3, 2)
+head(data)
+if(data$Medal=="BRONZE"){#
+  data$MedalCode <- 1}
+head(data)
+if(data$Medal=='GOLD'){#
+    data$MedalCode <- 3#
+} else if(data$Medal=='SILVER'){#
+    data$MedalCode <- 2#
+} else {#
+    data$MedalCode <- 1#
+}
+head(data)
+data$MedalCode <- function(data$Medal) {#
+    if (data$Medal == "GOLD") { #
+        3#
+    } else if (data$Medal == "SILVER") {#
+        2#
+    } else {1#
+}
+head(data)
+data$MedalCode <- if (data$medal == "GOLD") 3
+data$MedalCode <- if (data$Medal == "GOLD") 3
+data$MedalCode <- ifelse(Medal=="SILVER", 2)
+data$MedalCode <- ifelse(data$Medal=="SILVER", 2)
+data$MedalCode <- ifelse(data$Medal=="SILVER", 2)
+data$MedalCode <- if (data.Medal == "GOLD") 3
+data$MedalCode <- for(i in 1:length(data$Medal)) {#
+if (data$medal == "GOLD") 3#
+}
+data$MedalCode <- for(i in 1:length(data$Medal)) {#
+if (data$Medal == "GOLD") 3#
+}
+warnings()
+head(data)
+data$MedalCode <- gsub("GOLD", "3", data$Medal)
+head(data)
+data$MedalCode <- gsub("SILVER", "2", data$Medal)
+head(data)
+data$MedalCode <- gsub("SILVER", "2", data$Medal), gsub("GOLD", 3, data$Medal), gsub("BRONZE", 1, data$MEdal)
+data$MedalCode <- gsub("SILVER", "2", data$Medal), gsub("GOLD", 3, data$Medal), gsub("BRONZE", 1, data$MEdal)
+?rep
+data$MedalCode <- data$Medal
+head(data)
+data$MedalCode <- gsub("SILVER", "2", data$MedalCode)
+head(data)
+data$MedalCode <- gsub("GOLD", "3", data$MedalCode)
+head(data)
+data$MedalCode <- gsub("BRONZE", "3", data$MedalCode)
+head(data)
+data$MedalCode <- data$Medal
+data$MedalCode <- gsub("GOLD", "3", data$MedalCode)
+data$MedalCode <- gsub("SILVER", "2", data$MedalCode)
+data$MedalCode <- gsub("BRONZE", "1", data$MedalCode)
+head(data)
+dataCleanSort <- data[order(MedalCode),]
+dataCleanSort <- data[order(data$MedalCode),]
+head(dataCleanSort)
+dataCleanSort <- data[order(data$MedalCode), decreasing=T]
+dataCleanSort <- data[order(-data$MedalCode),]
+dataCleanSort <- data[order(data$MedalCode),]
+head(dataCleanSort)
+write.csv(dataCleanSort, "datacleansort.csv")
+hist(dataCleanSort$Altitude)
+altitudeOrder <- data[order(dataCleanSort$Altitude)]
+altitudeOrder <- dataCleanSort[order(dataCleanSort$Altitude)]
+altitudeOrder <- dataCleanSort[order(dataCleanSort$Altitude)]
+as.numeric(dataCleanSort$Altitude)
+dataCleanSort$Altitude <- as.numeric(dataCleanSort$Altitude)
+altitudeOrder <- dataCleanSort[order(dataCleanSort$Altitude)]
+altitudeOrder <- dataCleanSort[order(dataCleanSort$Altitude),]
+head(altitudeOrder)
+altitudeOrder
+altitudeOrder
+altitudeOrder
+altitudeOrder
+hist(data$Altitude)
