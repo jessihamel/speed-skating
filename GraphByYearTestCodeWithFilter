@@ -115,6 +115,7 @@
           </ul>
 
    <!--Splitting the radio buttons into two columns-->
+
     <h2>Short Track Events</h2>
             <ul id="ShortTrack">
               <li><label><input type="radio" name="radio" value="ShortFiveHundredMen">500m Short Track Men</label></li>
@@ -132,10 +133,6 @@
 var margin = {top: 20, right: 20, bottom: 20, left: 20};
      width = 960 - margin.left - margin.right,
      height = 600 - margin.top - margin.bottom;
-
-var marginAlt = {top: 20, right: margin.right, bottom: 20, left: margin.left};
-     widthAlt = width,
-     heightAlt = 300 - margin.top - margin.bottom;
 
 //defining a variable to make it easier to select within the html//
 
@@ -273,13 +270,6 @@ d3.csv("datacleansort.csv", function(error, data){
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  //make the second svg "canvas"//
-  var svgAlt = html.append("svg")
-      .attr("width", widthAlt + marginAlt.left + marginAlt.right)
-      .attr("height", heightAlt + marginAlt.top + marginAlt.bottom)
-      .append("g")
-      .attr("transform", "translate(" + marginAlt.left + "," + marginAlt.top + ")");
-
 //make values numeric so we can do math//
   data.forEach(function(d) { 
     d.Year = +d.Year,
@@ -287,12 +277,19 @@ d3.csv("datacleansort.csv", function(error, data){
     d.totalseconds = +d.totalseconds
   });
 
-//x and y scales--note the yScale has only range at this point. We'll define the domain down in the function because it changes.//
+//x and y scales--not the yScale has only range at this point. We'll define the domain down in the function because it changes.//
 //Note that xScale has an ordinal scale with a defined domain. This is because the olympic event years are not evenly spaced across time, so if you were to scale it linearly, it would look strange and uneven.//
-  var xScale = d3.scale.ordinal()
-      .domain([1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014])
+  //var xScale = d3.scale.ordinal()
+      //.domain([1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014])
       //rangePoints takes an interval, the number after the brackets is the padding//
-      .rangePoints([0, width], 2);
+      //.rangePoints([0, width], 2);
+
+      //create a variable that gives us data after 1960
+  var dataAfter1960 = data.filter(function(d, i) { return d.Year <1968 });
+
+  var xScale = d3.scale.linear()
+      .domain([d3.min(dataAfter1960, function(d) { return d.Altitude}), d3.max(dataAfter1960, function(d) { return d.Altitude})])
+      .range([0, width]);
 
   var yScale = d3.scale.linear()
       .range([height, 0]);
@@ -327,23 +324,21 @@ d3.csv("datacleansort.csv", function(error, data){
       .attr("class", "yaxis")
       .call(yAxis);
 
-  //draw the altitudes in the second svg
+  //draw the altitudes
 
-        //define a y domain variable so we can graph the altitudes at a static height without messing anything else up
-        var YDomainAlt = d3.scale.linear()
-            .domain([0, 2000])
-            .range([heightAlt, 0]);
+  //define a y domain variable so we can graph the altitudes at a static height without messing anything else up
+  var altitudeYDomain = yScale.domain([0, 2000])
 
-        //data join for the altitude lines
-        var lines = svgAlt.selectAll("lines")
-            .data(data)
-            .enter()
-            .append("line")
-            .attr("x1", function(d){ return xScale(d.Year); })
-            .attr("y1", function(d){ return heightAlt})
-            .attr("x2", function(d){ return xScale(d.Year)})
-            .attr("y2", function(d){ return YDomainAlt(d.Altitude)})
-            .attr("class", "altitudeLine");
+  //data join for the altitude lines
+  var lines = svg.selectAll("lines")
+      .data(data)
+      .enter()
+      .append("line")
+      .attr("x1", function(d){ return xScale(d.Altitude); })
+      .attr("y1", function(d){ return height})
+      .attr("x2", function(d){ return xScale(d.Altitude)})
+      .attr("y2", function(d){ return altitudeYDomain(d.Altitude)})
+      .attr("class", "altitudeLine");
 
 //this is the function that feeds in the event data (triggered by the radio buttons) and draws a graph
 
@@ -390,7 +385,7 @@ d3.csv("datacleansort.csv", function(error, data){
         .transition()
         .duration(100)
         .style("opacity", 0)
-        .attr('cx', function(d){ return xScale(d.Year); })
+        .attr('cx', function(d){ return xScale(d.Altitude); })
       //transition vertically to the correct place on the scale
         .transition()
         .duration(450)
