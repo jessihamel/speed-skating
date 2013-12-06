@@ -8,8 +8,9 @@
     }
 
     .EventList{
-      display: inline;
-      float: left;
+      position: fixed;
+      left: 20px;
+      top: 20px;
     }
 
     h2{
@@ -27,6 +28,7 @@
     svg{
       padding-left: 30px;
       padding-top: 10px;
+      margin-left: 200px;
     }
 
       .yaxis path,
@@ -131,7 +133,7 @@
 
 var margin = {top: 20, right: 20, bottom: 20, left: 20};
      width = 960 - margin.left - margin.right,
-     height = 600 - margin.top - margin.bottom;
+     height = 300 - margin.top - margin.bottom;
 
 var marginAlt = {top: 20, right: margin.right, bottom: 20, left: margin.left};
      widthAlt = width,
@@ -145,6 +147,15 @@ var html = d3.select("body");
 //loading up the csv//
 
 d3.csv("datacleansort.csv", function(error, data){
+
+    //make values numeric so we can do math//
+      data.forEach(function(d) { 
+        d.Year = +d.Year,
+        d.Altitude = +d.Altitude,
+        d.totalseconds = +d.totalseconds
+      });
+
+      var data = data.filter(function(d, i) { return d.Year > 1960 });
 
         //create a variable for all events and do a data join so that the viewer can see everything on load//
 
@@ -280,22 +291,15 @@ d3.csv("datacleansort.csv", function(error, data){
       .append("g")
       .attr("transform", "translate(" + marginAlt.left + "," + marginAlt.top + ")");
 
-//make values numeric so we can do math//
-  data.forEach(function(d) { 
-    d.Year = +d.Year,
-    d.Altitude = +d.Altitude,
-    d.totalseconds = +d.totalseconds
-  });
-
 //x and y scales--note the yScale has only range at this point. We'll define the domain down in the function because it changes.//
 //Note that xScale has an ordinal scale with a defined domain. This is because the olympic event years are not evenly spaced across time, so if you were to scale it linearly, it would look strange and uneven.//
   var xScale = d3.scale.ordinal()
-      .domain([1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014])
+      .domain([1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014])
       //rangePoints takes an interval, the number after the brackets is the padding//
       .rangePoints([0, width], 2);
 
   var yScale = d3.scale.linear()
-      .range([height, 0]);
+      .range([0, height]);
 
 //let's nest data so we can sort it better//
 
@@ -312,12 +316,17 @@ d3.csv("datacleansort.csv", function(error, data){
   var xAxis = d3.svg.axis()
     .scale(xScale)
     .tickFormat(d3.format("d"))
-    .tickValues([1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014]);
+    .tickValues([1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014]);
 
   svg.append("g")
       .attr("class", "xaxis")  //Assign "xaxis" class
       .call(xAxis)
       .attr("transform", "translate(0," + (height) + ")");
+
+svgAlt.append("g")
+      .attr("class", "xaxis")  //Assign "xaxis" class
+      .call(xAxis)
+      .attr("transform", "translate(0," + (heightAlt) + ")");
 
   var yAxis = d3.svg.axis()
       .scale(yScale)
@@ -331,7 +340,7 @@ d3.csv("datacleansort.csv", function(error, data){
 
         //define a y domain variable so we can graph the altitudes at a static height without messing anything else up
         var YDomainAlt = d3.scale.linear()
-            .domain([0, 2000])
+            .domain([0, 1320])
             .range([heightAlt, 0]);
 
         //data join for the altitude lines
