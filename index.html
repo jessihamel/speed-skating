@@ -33,12 +33,12 @@
 
       .yaxis line {
           fill: none;
-          stroke: black;
+          stroke:  #8b8989;
           shape-rendering: crispEdges;
       }
 
       .yaxis text {
-          fill: #333;
+          fill:  #8b8989;
           font-family: sans-serif;
           font-size: 10px;
       }
@@ -47,18 +47,18 @@
 
       .xaxis line {
           fill: none;
-          stroke: black;
+          stroke: #8b8989;
           shape-rendering: crispEdges;
         }
 
       .xaxis text {
-          fill: #333;
+          fill:  #8b8989;
           font-family: sans-serif;
           font-size: 10px;
       }        
 
       .gold {
-          fill: rgba(201,137,16,0.9);
+          fill: rgba(201,137,16,0.7);
       }
 
       .silver {
@@ -74,6 +74,15 @@
           stroke-opacity: 0.2;
           stroke-width: 1px;
       }
+
+      label {  
+          display: inline-block;  
+          cursor: pointer;  
+          position: relative;  
+          padding-left: 25px;  
+          margin-right: 15px;  
+          font-size: 13px;  
+      }  
 
 
 </style>
@@ -104,11 +113,9 @@
             <li><label><input type="radio" name="radio" value="FiveThousandWomen">5000m Women</label></li>
             <li><label><input type="radio" name="radio" value="TenThousandMen">10000m Men</label></li>
           </ul>
-  </div class="EventList">
 
    <!--Splitting the radio buttons into two columns-->
 
-  <div class="EventList">
     <h2>Short Track Events</h2>
             <ul id="ShortTrack">
               <li><label><input type="radio" name="radio" value="ShortFiveHundredMen">500m Short Track Men</label></li>
@@ -160,12 +167,25 @@ d3.csv("datacleansort.csv", function(error, data){
                   circles.exit()
                     .remove();
 
-                  circles.transition()
-                    .duration(1000)
-                    .ease("exp-in-out")
-                    .attr('r', "5")
+                  circles
+                  //transition it vertically down off of the graph
+                    .transition()
+                    .duration(450)
+                    .style("opacity", 0)
+                    .attr('cy', height)
+                    .ease("cubic-in-out")
+                  //move the circles to the correct x value, so we can transition them vertically up
+                    .transition()
+                    .duration(100)
+                    .style("opacity", 0)
                     .attr('cx', function(d){ return xScale(d.Year); })
+                  //transition vertically to the correct place on the scale
+                    .transition()
+                    .duration(450)
+                    .style("opacity", 1)
+                    .ease("cubic-in-out")
                     .attr('cy', function(d){ return yScale(d.totalseconds); })
+                    .attr('r', "5")
                     .attr('stroke', '#575757');
             });
 
@@ -257,10 +277,12 @@ d3.csv("datacleansort.csv", function(error, data){
     d.totalseconds = +d.totalseconds
   });
 
-//x and y scales--not the yScale has only range at this point. We'll define the domain down in the function because it changes//
-  var xScale = d3.scale.linear()
-      .domain([1924, 2014])
-      .range([0, width]);
+//x and y scales--not the yScale has only range at this point. We'll define the domain down in the function because it changes.//
+//Note that xScale has an ordinal scale with a defined domain. This is because the olympic event years are not evenly spaced across time, so if you were to scale it linearly, it would look strange and uneven.//
+  var xScale = d3.scale.ordinal()
+      .domain([1924, 1928, 1932, 1936, 1948, 1952, 1956, 1960, 1964, 1968, 1972, 1976, 1980, 1984, 1988, 1992, 1994, 1998, 2002, 2006, 2010, 2014])
+      //rangePoints takes an interval, the number after the brackets is the padding//
+      .rangePoints([0, width], 2);
 
   var yScale = d3.scale.linear()
       .range([height, 0]);
@@ -297,10 +319,10 @@ d3.csv("datacleansort.csv", function(error, data){
 
   //draw the altitudes
 
-  //define the y domain so we can graph the altitudes at a static height
+  //define a y domain variable so we can graph the altitudes at a static height without messing anything else up
   var altitudeYDomain = yScale.domain([0, 2000])
 
-
+  //data join for the altitude lines
   var lines = svg.selectAll("lines")
       .data(data)
       .enter()
@@ -338,7 +360,8 @@ d3.csv("datacleansort.csv", function(error, data){
 
     svg.select(".yaxis")
         .transition()
-        .duration(1000).ease("exp-in-out")
+        .duration(1000)
+        .ease("exp-in-out")
         .call(yAxis);
 
     circles.exit()

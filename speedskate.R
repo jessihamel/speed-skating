@@ -1,4 +1,4 @@
-data <- read.csv("speedskateolympics5.csv")
+data <- read.csv("speedskateolympics6.csv")
 
 #converting time to seconds, so that we can compare values
 #get minutes
@@ -130,3 +130,12 @@ plot(ShortRelay3000$Year, ShortRelay3000$totalseconds, col=plotcolor)
 
 #now to plot the altitude
 plot(altitude$Year, altitude$Altitude, col="green", type="l", ylim=c(-3000, 2000))
+
+#Using gsub to assign a code to each Medal
+data$MedalCode <- data$Medal
+data$MedalCode <- gsub("GOLD", "3", data$MedalCode)
+data$MedalCode <- gsub("SILVER", "2", data$MedalCode)
+data$MedalCode <- gsub("BRONZE", "1", data$MedalCode)
+
+#sort it and give it a new name
+dataCleanSort <- data[order(data$MedalCode),]
