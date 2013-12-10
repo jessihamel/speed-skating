@@ -74,7 +74,12 @@
       .altitudeLine{
           stroke: rgb(205,201,201);
           stroke-opacity: 0.2;
-          stroke-width: 1px;
+          stroke-width: 3px;
+      }
+
+      .sochiAltitude {
+          stroke: rgb(205,201,201);
+          stroke-width: 3px;
       }
 
       label {  
@@ -92,11 +97,14 @@
 <head>
     <meta charset="utf-8">
 
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="d3.v3/d3.v3.min.js" charset="utf-8"></script>
 
 </head>
 
 <body>
+
+  <div id="infobox">
+  </div>
 
  <!--Here we are adding some radio buttons-->
 
@@ -307,7 +315,7 @@ d3.csv("datacleansort.csv", function(error, data){
       .key(function(d) { return d.Event; })
       .map(data);
 
-//and this one is by Event and Year so we can create a data box--not sure yet if that's going to work//
+//and this one is by Event and Year so we can create a data box and basically aggregate by Year for drawing an invisible object to hover over//
   var dataByEventAndYear = d3.nest()
       .key(function(d) { return d.Event; })
       .key(function(d) { return d.Year; })
@@ -354,12 +362,48 @@ svgAlt.append("g")
             .attr("y2", function(d){ return YDomainAlt(d.Altitude)})
             .attr("class", "altitudeLine");
 
+        //hard code in the sochi data//
+
+        svgAlt.append("line")
+            .attr("class", "sochiAltitude" )
+            .attr("x1", function(d){ return xScale(2014); })
+            .attr("x2", function(d){ return xScale(2014); })
+            .attr("y1", function(d){ return heightAlt})
+            .attr("y2", function(d){ return YDomainAlt(34);});
+
 //this is the function that feeds in the event data (triggered by the radio buttons) and draws a graph
 
   function draw(currentEvent) {
     console.log(currentEvent);
 
+    //create some variables based on the loaded event, so we can call them in our data join//
     var currentEventData = dataByEvent[currentEvent];
+    var currentEventDataYear = dataByEventAndYear[currentEvent];
+    //d3.entries is a way to turn our object data into an array so we can do a data join on it//
+    var currentEventDataYearArray = d3.entries(dataByEventAndYear[currentEvent]);
+
+
+    //this draws invisible rectangles that are linked to a hover function, so that when a user hovers over the rectangle with their mouse, they will see some data (altitude and times) update//
+    var invisibleRects = svg.selectAll("rect")
+      .data(currentEventDataYearArray)
+      .enter()
+      .append("rect")
+      .attr("fill", "#E8E8E8")
+      .attr("width", width/14)
+      .attr("height", height)
+      .attr("y", 0)
+      .attr("x", function(d, i){return (width/30+(i*(width/15)));})
+      .on("mouseover", function(d) {
+          //pull out the array that's inside of the Year Array, giving us an array for each medal of the year//
+             var eventValues = (d.value);
+          //write a for loop, to loop through and pull out the relevant information. This is getting kinda complicated.//
+             for (var i=0;i<eventValues.length;i++)
+
+                {console.log(
+                    eventValues[i].Medal
+                );}
+      });
+    
 
     yScale.domain([d3.min(currentEventData, function(d) { return d.totalseconds}), d3.max(currentEventData, function(d) { return d.totalseconds})]);
 
