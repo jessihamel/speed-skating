@@ -3,34 +3,66 @@
 <style type="text/css">
 
 html{
-font-family: Helvetica, sans-serif;
+font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 font-size: 12px;
 }
 
 .EventList{
 position: absolute;
 left: 20px;
-top: 100px;
 }
+
+#d3Chart{
+  margin-left:50px;
+}
+
+a:link {color:#2A363B;}   
+a:visited {color:#2A363B;}
 
 h1{
 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 font-weight: normal;
-font-size: 44px;
-margin-top: 20px;
-margin-left: 20px;
-margin-bottom: 40px;
-color: #2A363B;
+font-size: 50px;
+width: 90%;
+margin: 0 auto;
+color: rgba(201,137,16,0.7);
+padding-bottom: 35px;
+padding-top: 20px;
+}
+
+p{
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #2A363B;
+  line-height: 1.3;
+  font-family: Garamond, Georgia, serif;
+}
+svg{
+  padding-left: 30px;
+  padding-top: 10px;
+  margin-left: 200px;
+}
+
+#legend {
+  margin-left: 13px;
+}
+
+#article{
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  padding-bottom: 60px;
 }
 
 #interactiveTitle{
 position: absolute;
 font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-font-weight: normal;
+font-weight: bold;
 font-size: 16px;
 letter-spacing: 1px;
-margin-left: 260px;
+margin-left: 240px;
 margin-top: -20px;
+margin-bottom: 20px;
 color: #2A363B;}
 
 h3 {
@@ -44,13 +76,6 @@ h3 {
 ul{
   list-style-type: none;
   padding-left: 10px;
-}
-
-
-svg{
-  padding-left: 30px;
-  padding-top: 10px;
-  margin-left: 200px;
 }
 
 .yaxis path {
@@ -139,6 +164,8 @@ label {
 
 #tooltip {
     position: absolute;
+    left: 1200px;
+    bottom:130px;
     width: 200px;
     height: auto;
     padding: 5px;
@@ -165,6 +192,21 @@ label {
   stroke-width: 60px;
 }
 
+#chartWrap{
+  position: relative;
+}
+
+#Sources{
+  position: absolute;
+  left: 250px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+}
+
+#legend{
+  display:none;
+}
+
 </style>
 
 <head>
@@ -178,15 +220,17 @@ label {
 
  <!--Here we are adding some radio buttons-->
 <h1>Olympic Speedskaters to Face an Old Nemesis in Sochi: Air</h1>
-<div id="interactiveTitle">What is the air speed velocity of an unladen speedskater?  It depends on the altitude.</div>
+<div id="article"><p>When long track olympic speed skaters hit the ice this winter, they'll not only be competing against each other, but also trying to overcome the dense atmosphere found in low-altitude places like Sochi.<br><br>For many athletes, competing at low altitudes can be a benefit. There's more air to breathe and more oxygen available for muscles. But speed skaters tend to perform better at high altitudes.<br><br>At high altitudes there's less air and therefore less drag on skaters' bodies as they race around the track. This makes them a few extra seconds or miliseconds faster--often enough to set a new olympic record. In fact, almost all of the records in individual olympic long track skating were set in Salt Lake City where the olympic skating track was at a record high of 4330 feet.<br><br>The track at Sochi this year is only at about 100 feet above sea level. Athletes hoping to break the current record will have to work extra hard to overcome the effects of air resistance. But if any records are set, it will be especially impressive.<br><br>The graph below shows the correlation between altitude and olympic speed skating times. The years colored gold are particularly high altitude years.</p></div>
+<div id="chartWrap">
+<div id="interactiveTitle">What is the air speed velocity of an unladen speedskater?  It depends on the altitude. Higher altitudes tend to mean faster speeds.</div>
   <div class="EventList">
     <h3>Events</h3>
           <ul id="Events">
-            <li><label><input checked="checked" type="radio" name="radio" value="FiveHundredMen">500m Men</label></li>
+            <li><label><input type="radio" name="radio" value="FiveHundredMen">500m Men</label></li>
             <li><label><input type="radio" name="radio" value="FiveHundredWomen">500m Women</label></li>
             <li><label><input type="radio" name="radio" value="OneThousandMen">1000m Men</label></li>
             <li><label><input type="radio" name="radio" value="OneThousandWomen">1000m Women</label></li>
-            <li><label><input type="radio" name="radio" value="FifteenHundredMen">1500m Men</label></li>
+            <li><label><input checked="checked" type="radio" name="radio" value="FifteenHundredMen">1500m Men</label></li>
             <li><label><input type="radio" name="radio" value="FifteenHundredWomen">1500m Women</label></li>
             <li><label><input type="radio" name="radio" value="ThreeThousandWomen">3000m Women</label></li>
             <li><label><input type="radio" name="radio" value="FiveThousandMen">5000m Men</label></li>
@@ -202,13 +246,26 @@ label {
               <li><label><input type="radio" name="radio" value="ShortOneThousandMen">1000m Short Track Men</label></li>
               <li><label><input type="radio" name="radio" value="ShortOneThousandWomen">1000m Short Track Women</label></li>
             </ul>
+
+      <svg id="legend" height="100" width="100">
+      <circle cx="0" cy="0" r="6" stroke="#2A363B" stroke-width="1" fill="rgba(201,137,16,0.7)" />
+      <circle cx="0" cy="20" r="6" stroke="#2A363B" stroke-width="1" fill="rgba(168,168,168, 0.6)" />
+      <circle cx="0" cy="40" r="6" stroke="#2A363B" stroke-width="1" fill="rgba(150,90,56, 0.6)" />
+
+</svg>
   </div>
 
+  <div id="d3Chart"></div>
   <div id="tooltip" class="hidden">
         <p><span id="location">Here</span></p>
         <p><span id="value">100</span> meters</p>
   </div>
+  </div>
 
+
+  <div id="Sources">Sources: <a href="http://www.olympic.org/Documents/Reference_documents_Factsheets/The_Olympic_Winter_Games.pdf">2008 Olympic Fact Sheet</a>, <a href="http://www.databaseolympics.com/games/gamessport.htm?g=34&sp=SPE">DatabaseOlympics.com</a>
+  </div>
+</div>
 
 <script type="text/javascript">
 
@@ -224,7 +281,7 @@ var marginAlt = {top: 20, right: margin.right, bottom: 20, left: margin.left};
 
 //defining a variable to make it easier to select within the html//
 
-var html = d3.select("body");
+var html = d3.select("#d3Chart");
 
 
 //loading up the csv//
@@ -417,17 +474,11 @@ d3.csv("datacleansort.csv", function(error, data){
             .attr("x1", function(d){ return xScale(d.Year); })
             .attr("y1", function(d){ return heightAlt})
             .attr("x2", function(d){ return xScale(d.Year)})
-            .attr("y2", function(d){ return YDomainAlt})
+            .attr("y2", function(d){ return YDomainAlt(1400)})
             .attr("class", "bigInvisible")
             .on("mouseover", function(d) {
 
-            //Get this bar's x/y values, then augment for the tooltip
-          var xPosition = d3.select(this).attr("x1");
-          var yPosition = d3.select(this).attr("y2" + 20);
-
             d3.select("#tooltip")
-              .style("top", 450 + "px")
-              .style("left", 1150 + "px")
               .select("#location")
               .text(d.Location);
 
@@ -455,6 +506,38 @@ d3.csv("datacleansort.csv", function(error, data){
             .attr("x2", function(d){ return xScale(2014); })
             .attr("y1", function(d){ return heightAlt})
             .attr("y2", function(d){ return YDomainAlt(34);});
+
+        //add an invisible box for the hover function
+
+        svgAlt
+            .append("line")
+            .attr("class", "bigInvisible")
+            .attr("x1", function(d){ return xScale(2014); })
+            .attr("y1", function(d){ return heightAlt})
+            .attr("x2", function(d){ return xScale(2014)})
+            .attr("y2", function(d){ return YDomainAlt(1400)})
+        //and add the hover function:
+            .on("mouseover", function(d) {
+
+            //Get this bar's x/y values, then augment for the tooltip
+            d3.select("#tooltip")
+              .select("#location")
+              .text("Sochi, Russia");
+
+            d3.select("#tooltip")
+              .select("#value")
+              .text("34");
+
+            //Show the tooltip
+            d3.select("#tooltip").classed("hidden", false);
+
+            })
+
+            .on("mouseout", function() {
+              //Remove the tooltip
+              d3.select("#tooltip").classed("hidden", true);
+
+            });
 
 
 
@@ -547,10 +630,12 @@ d3.csv("datacleansort.csv", function(error, data){
 
 
 
-  draw("500m Men");
+  draw("1500m Men");
 
 
 });
 
 </script>
+
+
 </body>
