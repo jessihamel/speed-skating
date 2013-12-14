@@ -20,10 +20,9 @@ a:link {color:#2A363B;}
 a:visited {color:#2A363B;}
 
 h1{
-font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 font-weight: normal;
 font-size: 50px;
-width: 90%;
+width: 85%;
 margin: 0 auto;
 color: rgba(201,137,16,0.7);
 padding-bottom: 35px;
@@ -54,16 +53,37 @@ svg{
   padding-top: 50px;
 }
 
+#chartWrap{
+  position: relative;
+}
+
 #interactiveTitle{
-position: absolute;
-font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 font-weight: bold;
 font-size: 16px;
 letter-spacing: 1px;
 margin-left: 240px;
 margin-top: -20px;
-margin-bottom: 20px;
+margin-bottom: 40px;
 color: #2A363B;}
+
+#chartHead{
+position: absolute;
+font-weight: bold;
+font-size: 14px;
+letter-spacing: 1px;
+margin-left: 260px;
+color: #2A363B;
+}
+
+#chartHead2{
+position: absolute;
+font-weight: bold;
+font-size: 14px;
+letter-spacing: 1px;
+margin-left: 260px;
+top: 400px;
+color: #2A363B;
+}
 
 h3 {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -192,10 +212,6 @@ label {
   stroke-width: 60px;
 }
 
-#chartWrap{
-  position: relative;
-}
-
 #Sources{
   position: absolute;
   left: 250px;
@@ -222,6 +238,8 @@ label {
 <h1>Olympic Speedskaters to Face an Old Nemesis in Sochi: Air</h1>
 <div id="chartWrap">
 <div id="interactiveTitle">What is the air speed velocity of an unladen speedskater?  It depends on the altitude. Higher altitudes tend to mean faster speeds.</div>
+<div id="chartHead">Gold, silver and bronze medal results since 1964.</div>
+<div id="chartHead2">Host city altitudes.</div>
   <div class="EventList">
     <h3>Events</h3>
           <ul id="Events">
@@ -265,7 +283,7 @@ label {
   <div id="Sources">Sources: <a href="http://www.olympic.org/Documents/Reference_documents_Factsheets/The_Olympic_Winter_Games.pdf">2008 Olympic Fact Sheet</a>, <a href="http://www.databaseolympics.com/games/gamessport.htm?g=34&sp=SPE">DatabaseOlympics.com</a>
   </div>
 </div>
-<div id="article"><p>When long track olympic speed skaters hit the ice this winter, they'll not only be competing against each other, but also trying to overcome the dense atmosphere found in low-altitude places like Sochi.<br><br>For many athletes, high altitudes mean worse performance. There's less air to breathe and less oxygen available for muscles. But speed skaters tend to perform better at high altitudes.<br><br>At high altitudes there's less air and therefore less drag on skaters' bodies as they race around the track. This makes them a few extra seconds or miliseconds faster--often enough to set a new olympic record. In fact, almost all of the records in individual olympic long track skating were set back in 2002, when the olympic skating track was at a record high of 4330 feet.<br><br>The track at Sochi this year is only at about 100 feet above sea level. Athletes hoping to break current olympic records will have to work extra hard to overcome the slowing effects of air resistance. But if any records are set, it will be especially impressive.<br><br>The graph below shows the correlation between altitude and olympic speed skating times. The years colored gold are particularly high altitude years.</p></div>
+<div id="article"><p>When long track olympic speed skaters hit the ice this winter, they&#8217;ll not only be competing against each other, but also trying to overcome the dense atmosphere found in low-altitude places like Sochi, Russia, host of the 2014 Winter Olympics.<br><br>For many athletes, high altitudes mean worse performance. There&#8217;s less air to breathe and less oxygen available for muscles. But speed skaters love high altitudes where the thin air means less drag on their bodies. This makes them a few extra seconds or miliseconds faster&#8212;often enough to set a new Olympic record. In fact, almost all of the records in individual olympic long track skating were set back in 2002, when the Olympic skating track was at a record high of 4330 feet.<br><br>The track at Sochi this year is only at about 100 feet above sea level. Athletes hoping to break current Olympic records will have to work extra hard to overcome the slowing effects of air resistance. But if any records are set, it will be especially impressive.</p></div>
 
 <script type="text/javascript">
 
